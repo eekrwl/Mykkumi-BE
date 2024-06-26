@@ -15,6 +15,7 @@ env:
   AWS_CODEDEPLOY_GROUP_NAME: ${{ secrets.AWS_CODEDEPLOY_GROUP_NAME }}
   AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
   AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+  AWS_SG_ID: ${{ secrets.AWS_SG }}
 
 # workflow는 한개 이상의 job을 가지며, 각 job은 여러 step에 따라 단계를 나눌 수 있습니다.
 jobs:
@@ -59,11 +60,11 @@ jobs:
 
       - name: Add Github Actions IP to Security group
         run: | # 명령어로 시큐리티 그룹 인바운드 임시 설정
-          aws ec2 authorize-security-group-ingress --group-id ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 
+          aws ec2 authorize-security-group-ingress --group-id ${{ env.AWS_SG }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 
     
       - name: Remove Github Actions IP from security group
         run: | # 작업이 끝났으니 다시 인바운드 룰에서 제거
-         aws ec2 revoke-security-group-ingress --group-id ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+         aws ec2 revoke-security-group-ingress --group-id ${{ env.AWS_SG }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
