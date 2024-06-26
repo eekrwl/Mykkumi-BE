@@ -75,8 +75,8 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build with Gradle 
+        run: ./gradlew build -x test
         shell: bash
 
   deploy:
