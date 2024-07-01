@@ -35,6 +35,9 @@ jobs:
           
       - name: Check IP Address
         run: curl ifconfig.me
+
+      - name: Check IP Address2
+        run: curl https://api.ipify.org
           
       - name: Setup MySQL
         uses: samin/mysql-action@v1
