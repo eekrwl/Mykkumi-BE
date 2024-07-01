@@ -85,7 +85,7 @@ jobs:
 
       - name: Remove Github Actions IP from security group
         run: | # 작업이 끝났으니 다시 인바운드 룰에서 제거
-          ip_address="${{ steps.ip.outputs.ipv4 }}"
+          ip_address="${{ ip_address }}"
           if [ -z "$ip_address" ]; then
             ip_address="${{ env.PUBLIC_IP }}"
           fi
