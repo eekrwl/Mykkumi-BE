@@ -33,6 +33,9 @@ jobs:
           java-version: '21'
           distribution: 'zulu'
           
+      - name: Check IP Address
+        run: curl ifconfig.me
+          
       - name: Setup MySQL
         uses: samin/mysql-action@v1
         with:
