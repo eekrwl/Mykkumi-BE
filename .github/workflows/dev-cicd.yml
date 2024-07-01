@@ -68,10 +68,12 @@ jobs:
 
       - name: Add Github Actions IP to Security group
         run: | # 명령어로 시큐리티 그룹 인바운드 임시 설정
-          ip_address=${{ steps.ip.outputs.ipv4 || env.PUBLIC_IP }}
-          aws ec2 authorize-security-group-ingress --group-id ${{ env.AWS_SG_ID }} --protocol tcp --port 3306 --cidr ${{ ip_address }}/32 
+          ip_address="${{ steps.ip.outputs.ipv4 }}"
+          if [ -z "$ip_address" ]; then
+            ip_address="${{ env.PUBLIC_IP }}"
+          fi
+          aws ec2 authorize-security-group-ingress --group-id ${{ env.AWS_SG_ID }} --protocol tcp --port 3306 --cidr ${ip_address}/32 
     
-
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
