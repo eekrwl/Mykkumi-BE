@@ -76,7 +76,7 @@ jobs:
         shell: bash
 
       - name: Build with Gradle 
-        run: ./gradlew build -x test
+        run: ./gradlew build
         shell: bash
 
   deploy:
@@ -99,7 +99,7 @@ jobs:
         shell: bash
 
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: ./gradlew build
         shell: bash
 
       - name: Make zip file
