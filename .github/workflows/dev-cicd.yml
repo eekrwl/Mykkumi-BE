@@ -85,7 +85,11 @@ jobs:
 
       - name: Remove Github Actions IP from security group
         run: | # 작업이 끝났으니 다시 인바운드 룰에서 제거
-         aws ec2 revoke-security-group-ingress --group-id ${{ env.AWS_SG_ID }} --protocol tcp --port 3306 --cidr ${{ ip_address }}/32
+          ip_address="${{ steps.ip.outputs.ipv4 }}"
+          if [ -z "$ip_address" ]; then
+            ip_address="${{ env.PUBLIC_IP }}"
+          fi
+           aws ec2 revoke-security-group-ingress --group-id ${{ env.AWS_SG_ID }} --protocol tcp --port 3306 --cidr ${{ ip_address }}/32
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
