@@ -68,6 +68,10 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
+      - name: Print environment variables
+        run: |
+          echo "DB NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}"
+
       - name: Build with Gradle 
         run: ./gradlew build -Dspring.profiles.active=dev
         shell: bash
