@@ -28,7 +28,7 @@ fi
 # 새 JAR 파일로 애플리케이션 실행
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포: $DEPLOY_JAR" >> $DEPLOY_LOG
-nohup java -jar -Dspring.profiles.active=prod $DEPLOY_JAR >> $DEPLOY_LOG 2>> $DEPLOY_ERR_LOG &
+nohup java -jar -Dspring.profiles.active=dev $DEPLOY_JAR >> $DEPLOY_LOG 2>> $DEPLOY_ERR_LOG &
 
 # 배포 완료 메시지 로그
 echo "> 배포 완료!" >> $DEPLOY_LOG
